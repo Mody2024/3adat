@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2dogs Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="particles"></canvas>
+    <header class="top-nav glass">
+      <div class="brand">2dogs <span>Store</span></div>
+      <nav>
+        <button class="tab-btn active" data-tab="store">Store</button>
+        <button class="tab-btn" data-tab="apps">Apps</button>
+        <button class="tab-btn" data-tab="library">Library</button>
+        <button class="tab-btn" data-tab="developer">Developer Hub</button>
+        <button class="tab-btn" data-tab="admin">Admin Panel</button>
+      </nav>
+      <div class="auth-actions">
+        <button id="openUserModal" class="ghost">Profile</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero glass">
+        <div>
+          <p class="eyebrow">NEXT-GEN DIGITAL STORE</p>
+          <h1>Discover, buy and install premium games & apps for PC.</h1>
+          <p>
+            Inspired by top platforms with curated content, rich visuals,
+            moderation workflows, developer tools, and secure role-based access.
+          </p>
+          <div class="cta-row">
+            <button class="primary" id="goStore">Browse Featured</button>
+            <button class="ghost" id="goDev">Become a Developer</button>
+          </div>
+        </div>
+        <div class="hero-cards">
+          <article class="card promo-card pulse">
+            <h3>Spring Mega Sale</h3>
+            <p>Up to 70% off selected titles this week.</p>
+          </article>
+          <article class="card promo-card">
+            <h3>Developer Pro Suite</h3>
+            <p>Upload builds, edit pages, and track approvals in one place.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-content active" id="store">
+        <h2>Featured Games</h2>
+        <div id="storeGrid" class="grid"></div>
+      </section>
+
+      <section class="tab-content" id="apps">
+        <h2>Apps Marketplace</h2>
+        <p class="sub">A full page dedicated to professional apps and tools.</p>
+        <div id="appsGrid" class="grid"></div>
+      </section>
+
+      <section class="tab-content" id="library">
+        <h2>Your Library</h2>
+        <div id="libraryGrid" class="grid"></div>
+      </section>
+
+      <section class="tab-content" id="developer">
+        <h2>Developer Hub</h2>
+        <div class="split">
+          <article class="card panel">
+            <h3>Developer Login</h3>
+            <form id="devLoginForm" class="form">
+              <input type="email" id="devEmail" placeholder="Developer email" required />
+              <input type="password" id="devPassword" placeholder="Password" required />
+              <button class="primary" type="submit">Sign In / Register</button>
+            </form>
+            <p class="tiny">Any email can register as developer in this demo.</p>
+          </article>
+
+          <article class="card panel" id="publishPanel">
+            <h3>Publish Game/App</h3>
+            <form id="publishForm" class="form">
+              <input id="itemTitle" placeholder="Title" required />
+              <select id="itemType" required>
+                <option value="game">Game</option>
+                <option value="app">App</option>
+              </select>
+              <input id="itemPrice" type="number" min="0" step="0.01" placeholder="Price (USD)" required />
+              <input id="itemImage" placeholder="Image URL (optional)" />
+              <textarea id="itemDesc" placeholder="Description" required></textarea>
+              <button class="primary" type="submit">Submit for Review</button>
+            </form>
+            <p class="tiny">Submissions go to admin moderation before publishing.</p>
+          </article>
+        </div>
+
+        <article class="card panel">
+          <h3>My Submissions</h3>
+          <div id="mySubmissions" class="list"></div>
+        </article>
+      </section>
+
+      <section class="tab-content" id="admin">
+        <h2>Admin Panel</h2>
+        <div class="split">
+          <article class="card panel">
+            <h3>Admin Sign In</h3>
+            <form id="adminLoginForm" class="form">
+              <input type="email" id="adminEmail" placeholder="Admin email" required />
+              <input type="password" id="adminPassword" placeholder="Password" required />
+              <button class="primary" type="submit">Sign In</button>
+            </form>
+            <p class="tiny">Configured admin account exists for moderation and store edits.</p>
+          </article>
+
+          <article class="card panel">
+            <h3>Store Controls</h3>
+            <div class="row">
+              <button id="seedData" class="ghost">Reset Demo Content</button>
+              <button id="logoutAdmin" class="ghost danger">Logout Admin</button>
+            </div>
+            <p class="tiny">Admin can approve/reject submissions and edit live catalog entries.</p>
+          </article>
+        </div>
+
+        <article class="card panel">
+          <h3>Pending Reviews</h3>
+          <div id="pendingReviews" class="list"></div>
+        </article>
+
+        <article class="card panel">
+          <h3>Published Catalog Editor</h3>
+          <div id="catalogEditor" class="list"></div>
+        </article>
+      </section>
+    </main>
+
+    <dialog id="userModal">
+      <article class="card panel">
+        <h3>Player Profile</h3>
+        <form id="userForm" class="form">
+          <input id="displayName" placeholder="Display Name" required />
+          <input id="avatarUrl" placeholder="Avatar URL" />
+          <button class="primary" type="submit">Save Profile</button>
+        </form>
+        <div id="profilePreview"></div>
+        <button id="closeUserModal" class="ghost">Close</button>
+      </article>
+    </dialog>
+
+    <template id="itemTemplate">
+      <article class="card item-card">
+        <img alt="Cover" class="cover" />
+        <div class="content">
+          <span class="pill"></span>
+          <h3></h3>
+          <p class="desc"></p>
+          <div class="meta">
+            <strong class="price"></strong>
+            <div class="actions"></div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
